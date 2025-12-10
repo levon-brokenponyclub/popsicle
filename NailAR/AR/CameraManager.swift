@@ -169,7 +169,8 @@ extension CameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
             return
         }
         
-        let orientation: CGImagePropertyOrientation = isUsingFrontCamera ? .leftMirrored : .right
+        // Use upright orientations for Vision to avoid 90° rotation issues
+        let orientation: CGImagePropertyOrientation = isUsingFrontCamera ? .upMirrored : .up
         DispatchQueue.main.async { [weak self] in
             self?.currentFrame = pixelBuffer
             self?.currentFrameOrientation = orientation
