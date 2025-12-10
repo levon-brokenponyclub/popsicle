@@ -90,13 +90,16 @@ class ARCameraViewController: UIViewController {
     }
     
     private func setupHandTracking() {
-        // Observe camera frames
-        cameraManager?.$currentFrame
-            .compactMap { $0 }
-            .sink { [weak self] pixelBuffer in
-                self?.processFrame(pixelBuffer)
-            }
-            .store(in: &cancellables)
+        // Observe camera frames with orientation
+        if let manager = cameraManager {
+            manager.$currentFrame
+                .compactMap { $0 }
+                .combineLatest(manager.$currentFrameOrientation)
+                .sink { [weak self] pixelBuffer, orientation in
+                    self?.processFrame(pixelBuffer, orientation: orientation)
+                }
+                .store(in: &cancellables)
+        }
         
         // Observe hand tracking results
         handTracker.$detectedHands
@@ -108,9 +111,9 @@ class ARCameraViewController: UIViewController {
     
     private var cancellables = Set<AnyCancellable>()
     
-    private func processFrame(_ pixelBuffer: CVPixelBuffer) {
-        // Process frame with hand tracker
-        handTracker.processFrame(pixelBuffer)
+    private func processFrame(_ pixelBuffer: CVPixelBuffer, orientation: CGImagePropertyOrientation) {
+        // Process frame with hand tracker using correct orientation
+        handTracker.processFrame(pixelBuffer, orientation: orientation)
     }
     
     private func updateOverlays(for hands: [HandLandmarks]) {

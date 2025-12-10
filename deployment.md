@@ -3,7 +3,7 @@ xcrun simctl install booted "$APP_PATH"
 
 Pick the guide that matches your target:
 
-- Real device (full AR, camera/hand tracking): see `deployment-device.md`.
+- Real device (Apple Vision hand tracking + color-only nails): see `deployment-device.md`.
 - Simulator (UI only, no camera/hand tracking): see `deployment-sim.md`.
 
 Shared prerequisites

@@ -11,30 +11,37 @@ import SwiftUI
 class NailOverlayRenderer {
     private weak var containerView: UIView?
     private var nailViews: [String: UIView] = [:]
+    private var previousTransforms: [String: NailTransform] = [:]
     
     init(view: UIView) {
         self.containerView = view
     }
     
     func updateNailOverlays(hands: [HandLandmarks], style: NailStyle, viewSize: CGSize) {
-        // Clear old nail views
-        clearNailViews()
-        
-        guard !hands.isEmpty else { return }
-        
+        guard !hands.isEmpty else {
+            clearNailViews()
+            return
+        }
+
+        var keysInUse = Set<String>()
+
         // Render nails for each detected hand
         for (handIndex, hand) in hands.enumerated() {
-            renderNailsForHand(hand, handIndex: handIndex, style: style, viewSize: viewSize)
+            renderNailsForHand(hand, handIndex: handIndex, style: style, viewSize: viewSize, keysInUse: &keysInUse)
         }
+
+        // Remove any overlays that were not updated this frame
+        pruneUnusedNails(keeping: keysInUse)
     }
     
-    private func renderNailsForHand(_ hand: HandLandmarks, handIndex: Int, style: NailStyle, viewSize: CGSize) {
+    private func renderNailsForHand(_ hand: HandLandmarks, handIndex: Int, style: NailStyle, viewSize: CGSize, keysInUse: inout Set<String>) {
         for finger in FingerType.allCases {
             guard let transform = hand.getNailTransform(for: finger, viewSize: viewSize) else {
                 continue
             }
             
             let key = "\(handIndex)_\(finger.rawValue)"
+            keysInUse.insert(key)
             let nailView = createOrUpdateNailView(key: key, transform: transform, style: style)
             
             if nailView.superview == nil {
@@ -54,16 +61,41 @@ class NailOverlayRenderer {
             nailView.layer.masksToBounds = true
             nailViews[key] = nailView
         }
+
+        let smoothed = smoothTransform(for: key, newTransform: transform)
+        previousTransforms[key] = smoothed
         
         // Apply transform
-        nailView.bounds = CGRect(origin: .zero, size: transform.scale)
-        nailView.center = transform.position
-        nailView.transform = CGAffineTransform(rotationAngle: transform.rotation)
+        nailView.bounds = CGRect(origin: .zero, size: smoothed.scale)
+        nailView.center = smoothed.position
+        nailView.transform = CGAffineTransform(rotationAngle: smoothed.rotation)
         
         // Apply style
         applyStyle(to: nailView, style: style)
         
         return nailView
+    }
+
+    private func smoothTransform(for key: String, newTransform: NailTransform, alpha: CGFloat = 0.25) -> NailTransform {
+        guard let previous = previousTransforms[key] else { return newTransform }
+        let invAlpha: CGFloat = 1 - alpha
+        let position = CGPoint(x: previous.position.x * invAlpha + newTransform.position.x * alpha,
+                               y: previous.position.y * invAlpha + newTransform.position.y * alpha)
+        let scale = CGSize(width: previous.scale.width * invAlpha + newTransform.scale.width * alpha,
+                           height: previous.scale.height * invAlpha + newTransform.scale.height * alpha)
+
+        // Smooth rotation using shortest angular distance
+        let delta = shortestAngleDelta(from: previous.rotation, to: newTransform.rotation)
+        let rotation = previous.rotation + delta * alpha
+
+        return NailTransform(position: position, rotation: rotation, scale: scale)
+    }
+
+    private func shortestAngleDelta(from: CGFloat, to: CGFloat) -> CGFloat {
+        var delta = to - from
+        while delta > .pi { delta -= 2 * .pi }
+        while delta < -.pi { delta += 2 * .pi }
+        return delta
     }
     
     private func applyStyle(to view: UIView, style: NailStyle) {
@@ -209,5 +241,15 @@ class NailOverlayRenderer {
             view.removeFromSuperview()
         }
         nailViews.removeAll()
+        previousTransforms.removeAll()
+    }
+
+    private func pruneUnusedNails(keeping keys: Set<String>) {
+        let unusedKeys = nailViews.keys.filter { !keys.contains($0) }
+        for key in unusedKeys {
+            nailViews[key]?.removeFromSuperview()
+            nailViews.removeValue(forKey: key)
+            previousTransforms.removeValue(forKey: key)
+        }
     }
 }

@@ -8,9 +8,11 @@
 import Foundation
 import AVFoundation
 import UIKit
+import ImageIO
 
 class CameraManager: NSObject, ObservableObject {
     @Published var currentFrame: CVPixelBuffer?
+    @Published var currentFrameOrientation: CGImagePropertyOrientation = .right
     @Published var isSessionRunning = false
     
     private let captureSession = AVCaptureSession()
@@ -56,7 +58,7 @@ class CameraManager: NSObject, ObservableObject {
         // Setup video output
         let output = AVCaptureVideoDataOutput()
         output.setSampleBufferDelegate(self, queue: DispatchQueue(label: "camera.frame.queue"))
-        output.alwaysDiscardsLateVideoFrames = true
+        output.alwaysDiscardsLateVideoFrames = false
         output.videoSettings = [
             kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA
         ]
@@ -167,8 +169,10 @@ extension CameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
             return
         }
         
+        let orientation: CGImagePropertyOrientation = isUsingFrontCamera ? .leftMirrored : .right
         DispatchQueue.main.async { [weak self] in
             self?.currentFrame = pixelBuffer
+            self?.currentFrameOrientation = orientation
         }
     }
 }

@@ -1,12 +1,18 @@
 # NailAR - iPad AR Nail Design App
 
+## Overview
+
+**Author**: Broken Pony Club / Levon Gravett  
+**Website**: https://www.brokenpony.club  
+**Version**: 1.0.2 (color-only, beta palette)
+
 A complete iPad app that uses real-time hand tracking to overlay virtual nail designs on your actual nails using the device camera.
 
 ## Features
 
-- ✅ Real-time hand tracking using Vision framework (21 landmarks per hand)
-- ✅ Live camera feed with AR nail overlays
-- ✅ 12 built-in nail design styles
+- ✅ Real-time hand tracking using Apple Vision (21 landmarks per hand)
+- ✅ Live camera feed with color-only nail overlays (no custom art)
+- ✅ 12 preset colors including 3 beta test shades
 - ✅ Scrollable style picker UI
 - ✅ Front/back camera switching
 - ✅ Photo capture with overlays
@@ -30,8 +36,8 @@ NailAR/
     │   ├── ARCameraView.swift
     │   └── NailStylePickerView.swift
     │
-    ├── Models/                # Data models
-    │   └── NailStyle.swift
+   ├── Models/                # Data models
+   │   └── NailStyle.swift    # Color-only palette (no custom art)
     │
     ├── AR/                    # Camera & rendering
     │   ├── CameraManager.swift
@@ -50,8 +56,10 @@ NailAR/
 - **Device**: iPad with iOS 16.0 or later
 - **Hardware**: Device with ARKit support and camera
 - **Development**: 
-  - macOS with Xcode 15.0 or later
-  - Apple Developer account (free tier works for sideloading)
+   - macOS with Xcode 26.1 or later
+   - Install iOS platform support in Xcode (at first launch screen, check **iOS 26.1**)
+   - Apple Developer account (free tier works for sideloading)
+   - Command Line Tools: `xcode-select --install` (or Xcode Settings → Locations → Command Line Tools)
 
 ## Building and Running
 
@@ -59,7 +67,7 @@ NailAR/
 
 1. Open Terminal and navigate to the project directory:
    ```bash
-   cd /Users/levongravett/Desktop/nail-app/NailAR
+   cd popsicle/NailAR
    ```
 
 2. Open the Xcode project:
@@ -114,20 +122,20 @@ NailAR/
 - Try different angles and positions
 - Use a plain background for clearer hand detection
 
-### Nail Styles Available
+### Nail Colors Available (color-only)
 
-1. **Classic French** - Nude with white tips
-2. **Glitter Gold** - Sparkly gold finish
-3. **Ruby Red** - Deep red solid
-4. **Baby Pink** - Soft pastel pink
-5. **Ocean Blue** - Vibrant blue
-6. **Royal Purple** - Rich purple
-7. **Sunset Gradient** - Orange to pink blend
-8. **Chrome Silver** - Metallic silver
-9. **Matte Black** - Flat black finish
-10. **Floral Design** - Pink with white dots
-11. **Geometric Pattern** - Blue with stripes
-12. **Holographic** - Iridescent purple/cyan
+1. Natural Clear (subtle gloss)
+2. Soft Nude
+3. Blush Pink
+4. Cherry Red
+5. Coral
+6. Sky Blue
+7. Lilac
+8. Emerald
+9. Slate Matte
+10. Beta: Sunrise
+11. Beta: Lagoon
+12. Beta: Amethyst
 
 ## Troubleshooting
 
@@ -169,29 +177,11 @@ NailAR/
 
 ## Customization
 
-### Adding Custom Nail Designs
+### Hand Tracking Tuning (color-only build)
 
-1. Create PNG images (512x768px, transparent background)
-2. Add to `NailAR/NailAssets/` folder
-3. Add files to Xcode project
-4. Update `NailStyle.swift` enum with new styles
-5. Modify `NailOverlayRenderer.swift` to load custom images
-
-### Modifying Overlay Appearance
-
-Edit `NailOverlayRenderer.swift`:
-- Adjust nail size calculation (scale factors)
-- Modify corner radius for nail shape
-- Change opacity, shadows, borders
-- Add new visual effects
-
-### Adjusting Hand Tracking
-
-Edit `HandTracker.swift`:
-- Change confidence threshold (currently 0.3)
-- Modify nail position offset (currently 0.7)
-- Adjust nail size ratios
-- Add smoothing/filtering for stability
+- Landmark confidence: 0.35 threshold for tips/joints
+- Nail placement uses nearest joint + tip; sizes are clamped to avoid tiny nails
+- Smoothing is enabled for both landmarks and overlay transforms
 
 ## Technical Details
 

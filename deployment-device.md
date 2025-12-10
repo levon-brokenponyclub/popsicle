@@ -3,8 +3,10 @@
 Full AR (camera + hand tracking) requires running on a physical iPad or iPhone. Use this guide to deploy from Xcode for maximum compatibility or via CLI once signing is configured.
 
 ## Prerequisites
-- Xcode 15+ installed (or `xcode-select` pointing to it)
+- Xcode 26.1+ installed (or `xcode-select` pointing to it)
+- Install iOS platform support when Xcode prompts on first launch (select **iOS 26.1**)
 - Apple Developer account signed into Xcode (free tier works for sideloading)
+- Command Line Tools installed (`xcode-select --install`) if you plan to use CLI
 - Device trusted via USB (Settings → General → VPN & Device Management → Developer App → Trust)
 - Enable Developer Mode on device (iOS 16+)
 - Bundle ID and signing set to your team

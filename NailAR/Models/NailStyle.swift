@@ -9,18 +9,18 @@ import Foundation
 import SwiftUI
 
 enum NailStyle: String, CaseIterable, Identifiable {
-    case classic = "Classic French"
-    case glitter = "Glitter Gold"
-    case red = "Ruby Red"
-    case pink = "Baby Pink"
-    case blue = "Ocean Blue"
-    case purple = "Royal Purple"
-    case gradient = "Sunset Gradient"
-    case chrome = "Chrome Silver"
-    case matte = "Matte Black"
-    case floral = "Floral Design"
-    case geometric = "Geometric Pattern"
-    case holographic = "Holographic"
+    case natural = "Natural Clear"
+    case nude = "Soft Nude"
+    case blush = "Blush Pink"
+    case cherry = "Cherry Red"
+    case coral = "Coral"
+    case sky = "Sky Blue"
+    case lilac = "Lilac"
+    case emerald = "Emerald"
+    case slate = "Slate Matte"
+    case betaSunrise = "Beta: Sunrise"
+    case betaLagoon = "Beta: Lagoon"
+    case betaAmethyst = "Beta: Amethyst"
     
     var id: String { self.rawValue }
     
@@ -31,61 +31,52 @@ enum NailStyle: String, CaseIterable, Identifiable {
     // Primary color for the nail design
     var primaryColor: Color {
         switch self {
-        case .classic:
-            return Color(red: 1.0, green: 0.95, blue: 0.9)
-        case .glitter:
-            return Color(red: 1.0, green: 0.84, blue: 0.0)
-        case .red:
-            return Color(red: 0.8, green: 0.0, blue: 0.0)
-        case .pink:
-            return Color(red: 1.0, green: 0.75, blue: 0.8)
-        case .blue:
-            return Color(red: 0.0, green: 0.5, blue: 0.8)
-        case .purple:
-            return Color(red: 0.5, green: 0.0, blue: 0.5)
-        case .gradient:
-            return Color(red: 1.0, green: 0.5, blue: 0.3)
-        case .chrome:
-            return Color(red: 0.75, green: 0.75, blue: 0.75)
-        case .matte:
-            return Color(red: 0.1, green: 0.1, blue: 0.1)
-        case .floral:
-            return Color(red: 1.0, green: 0.9, blue: 0.95)
-        case .geometric:
-            return Color(red: 0.3, green: 0.7, blue: 0.9)
-        case .holographic:
-            return Color(red: 0.9, green: 0.7, blue: 1.0)
+        case .natural:
+            return Color(red: 1.0, green: 1.0, blue: 1.0).opacity(0.25)
+        case .nude:
+            return Color(red: 0.93, green: 0.84, blue: 0.78)
+        case .blush:
+            return Color(red: 1.0, green: 0.78, blue: 0.86)
+        case .cherry:
+            return Color(red: 0.84, green: 0.09, blue: 0.17)
+        case .coral:
+            return Color(red: 1.0, green: 0.52, blue: 0.47)
+        case .sky:
+            return Color(red: 0.38, green: 0.69, blue: 0.97)
+        case .lilac:
+            return Color(red: 0.74, green: 0.62, blue: 0.91)
+        case .emerald:
+            return Color(red: 0.13, green: 0.56, blue: 0.45)
+        case .slate:
+            return Color(red: 0.24, green: 0.27, blue: 0.32)
+        case .betaSunrise:
+            return Color(red: 1.0, green: 0.64, blue: 0.36)
+        case .betaLagoon:
+            return Color(red: 0.18, green: 0.65, blue: 0.73)
+        case .betaAmethyst:
+            return Color(red: 0.56, green: 0.34, blue: 0.71)
         }
     }
     
     // Secondary color for gradient/accent
     var secondaryColor: Color? {
-        switch self {
-        case .gradient:
-            return Color(red: 0.8, green: 0.2, blue: 0.5)
-        case .classic:
-            return Color.white
-        case .holographic:
-            return Color(red: 0.5, green: 0.9, blue: 1.0)
-        default:
-            return nil
-        }
+        return nil
     }
     
     // Visual properties
     var hasGlitter: Bool {
-        return self == .glitter || self == .holographic
+        return false
     }
     
     var hasPattern: Bool {
-        return self == .floral || self == .geometric
+        return false
     }
     
     var isMatte: Bool {
-        return self == .matte
+        return self == .slate
     }
     
     var metallic: Bool {
-        return self == .chrome || self == .glitter
+        return false
     }
 }
