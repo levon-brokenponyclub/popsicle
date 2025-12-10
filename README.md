@@ -8,6 +8,14 @@
 
 A complete iPad app that uses real-time hand tracking to overlay virtual nail designs on your actual nails using the device camera.
 
+## What to Expect When Running
+
+- Live camera feed with Apple Vision hand tracking (21 landmarks/hand) driving color-only nail overlays; no custom art is loaded.
+- Overlays follow each fingertip; smoothing reduces jitter and nail sizes are clamped so they don’t shrink too small.
+- Front/back camera supported; orientation is handled automatically for hand tracking.
+- Simulator shows UI only (no camera/hand tracking). Use a real device for AR/vision.
+- Permissions: first launch prompts for Camera and Photos; allow both for full functionality.
+
 ## Features
 
 - ✅ Real-time hand tracking using Apple Vision (21 landmarks per hand)
@@ -187,16 +195,17 @@ NailAR/
 
 ### Hand Tracking Tuning (color-only build)
 
-- Landmark confidence: 0.35 threshold for tips/joints
-- Nail placement uses nearest joint + tip; sizes are clamped to avoid tiny nails
-- Smoothing is enabled for both landmarks and overlay transforms
+- Confidence threshold: 0.35 for tips/joints (Vision hand pose revision 3)
+- Orientation: uses camera orientation (front/back aware) when processing frames
+- Placement: nearest joint + tip; sizes clamped to avoid tiny nails
+- Smoothing: applied to both detected landmarks and overlay transforms
 
 ## Technical Details
 
 ### Frameworks Used
 
 - **SwiftUI** - Modern UI framework
-- **Vision** - Hand pose detection (21 landmarks per hand)
+- **Vision** - Hand pose detection (21 landmarks per hand), revision 3
 - **AVFoundation** - Camera capture and video processing
 - **CoreImage** - Image processing
 - **Photos** - Photo library integration
@@ -206,15 +215,15 @@ NailAR/
 
 - **MVVM Pattern** - Separation of UI and business logic
 - **ObservableObject** - Reactive state management
-- **Real-time Processing** - 30+ fps hand tracking
-- **Coordinate Mapping** - Vision coordinates → screen coordinates
-- **Transform Calculations** - Position, rotation, scale for each nail
+- **Real-time Processing** - 30+ fps hand tracking with smoothing
+- **Coordinate Mapping** - Vision coordinates → screen coordinates with orientation handling
+- **Transform Calculations** - Position, rotation, scale for each nail with size clamps
 
 ### Performance
 
 - Runs at 30-60 fps on modern iPads
 - Low latency hand tracking (<50ms)
-- Efficient memory usage
+- Efficient memory usage; smoothing to stabilize overlays
 - Optimized for battery life
 
 ## Sideloading Notes
