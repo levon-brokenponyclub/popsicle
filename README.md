@@ -254,3 +254,29 @@ Potential improvements:
 - AR anchoring improvements
 - Video recording with overlays
 - Social sharing features
+
+## Git Notes (do not forget)
+
+Use the repo at `https://github.com/levon-brokenponyclub/popsicle.git`.
+
+Common commands:
+
+- Set remote (already set):
+   ```bash
+   git remote set-url origin https://github.com/levon-brokenponyclub/popsicle.git
+   ```
+- Check status:
+   ```bash
+   git status -sb
+   ```
+- Commit and push:
+   ```bash
+   git add .
+   git commit -m "<message>"
+   git push origin main
+   ```
+- Fresh clone (new folder):
+   ```bash
+   git clone https://github.com/levon-brokenponyclub/popsicle.git popsicle
+   cd popsicle
+   ```
