@@ -14,7 +14,8 @@ Full AR (camera + hand tracking) requires running on a physical iPad or iPhone. 
 ## One-time: set bundle ID & team
 In Xcode (one-time step):
 1) Open `popsicle/NailAR/NailAR.xcodeproj` → target **NailAR** → Signing & Capabilities.  
-2) Set **Team** to your account; Xcode will set a bundle ID like `com.yourname.NailAR`.
+2) Set **Team** to **Popsicle Professional Nails (Pty) Ltd**.  
+3) Set **Bundle Identifier** to `com.silo7.popsicle`.
 
 ## Xcode UI quick run (recommended first time)
 1) Connect your device and trust it; enable Developer Mode if prompted.  
@@ -47,7 +48,7 @@ Save as `scripts/deploy-device.sh` (make it executable `chmod +x scripts/deploy-
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
-APP_ID="com.nailar.app"           # change if you customized bundle ID
+APP_ID="com.silo7.popsicle"      # bundle ID
 TEAM_ID="<TEAM_ID>"               # your Apple Developer Team ID
 DEVICE_NAME="<IPHONE_OR_IPAD_NAME>"  # e.g., "John's iPhone"
 PROJECT_DIR="popsicle/NailAR"

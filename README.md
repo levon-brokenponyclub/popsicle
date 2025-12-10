@@ -88,8 +88,8 @@ NailAR/
 1. In Xcode, select the **NailAR** project in the navigator
 2. Select the **NailAR** target
 3. Go to the **Signing & Capabilities** tab
-4. Set your **Team** (sign in with your Apple ID if needed)
-5. Xcode will automatically generate a Bundle Identifier like `com.yourname.NailAR`
+4. Set your **Team** to **Popsicle Professional Nails (Pty) Ltd** (sign in with your Apple ID if needed)
+5. Set the **Bundle Identifier** to `com.silo7.popsicle`
 
 ### Step 3: Connect Your iPad
 
