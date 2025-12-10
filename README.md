@@ -303,3 +303,4 @@ Common commands:
 - `Type 'NailStyle' has no member 'classic'`: occurs if defaults reference removed styles. Fixed by using `.natural` (color-only palette) in `ContentView`, `ARCameraViewController`, and preview bindings.
 - `Type 'NailStyle' has no member 'floral' / 'geometric'`: remove pattern-style branches in `NailOverlayRenderer` (color-only build).
 - `Type 'VNDetectHumanHandPoseRequest' has no member 'revision3'`: use availability-checked `VNDetectHumanHandPoseRequestRevision3` inside `#available(iOS 17.0, *)` in `HandTracker.setupVision()`.
+- `Cannot find 'VNDetectHumanHandPoseRequestRevision3' in scope`: occurs on older SDKs; fix by not setting a specific revision (use default highest available) in `HandTracker.setupVision()`.

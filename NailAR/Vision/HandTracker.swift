@@ -26,9 +26,7 @@ class HandTracker: ObservableObject {
     private func setupVision() {
         handPoseRequest = VNDetectHumanHandPoseRequest()
         handPoseRequest?.maximumHandCount = 2 // Track both hands
-        if #available(iOS 17.0, *) {
-            handPoseRequest?.revision = VNDetectHumanHandPoseRequestRevision3
-        }
+        // Use default highest-available revision for SDK in use (no explicit constant to keep older SDKs compatible).
     }
     
     // Process a frame to detect hands
