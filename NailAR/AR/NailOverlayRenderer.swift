@@ -194,14 +194,9 @@ class NailOverlayRenderer {
     }
     
     private func addPatternOverlay(to view: UIView, style: NailStyle) {
-        switch style {
-        case .floral:
-            addFloralPattern(to: view)
-        case .geometric:
-            addGeometricPattern(to: view)
-        default:
-            break
-        }
+        // Patterns are disabled in color-only build
+        _ = view
+        _ = style
     }
     
     private func addFloralPattern(to view: UIView) {
