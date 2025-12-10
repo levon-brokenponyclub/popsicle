@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-APP_ID="com.nailar.app"            # change if you customized the bundle ID
-TEAM_ID="<TEAM_ID>"                # your Apple Developer Team ID
-DEVICE_NAME="<IPHONE_OR_IPAD_NAME>" # e.g., "John’s iPhone" or "Alice’s iPad"
+APP_ID="com.silo7.popsicle"        # bundle ID
+TEAM_ID="H8PXUJH7MU"               # Apple Developer Team ID
+DEVICE_NAME="<IPHONE_OR_IPAD_NAME>" # e.g., "John's iPhone" or "Alice's iPad"
 PROJECT_DIR="/Users/levongravett/Desktop/nail-app/NailAR"
 DERIVED="${PROJECT_DIR}/build"
 

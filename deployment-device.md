@@ -34,13 +34,13 @@ xcodebuild \
   -configuration Debug \
   -destination 'platform=iOS,name=<IPHONE_OR_IPAD_NAME>' \
   -derivedDataPath build \
-  DEVELOPMENT_TEAM=<TEAM_ID>
+  DEVELOPMENT_TEAM=H8PXUJH7MU
 
 # Install to device (Xcode 15+ devicectl)
 xcrun devicectl device install app --device <DEVICE_UDID> build/Build/Products/Debug-iphoneos/NailAR.app
 
 # Launch the app
-xcrun devicectl device process launch --device <DEVICE_UDID> com.nailar.app
+xcrun devicectl device process launch --device <DEVICE_UDID> com.silo7.popsicle
 ```
 
 ## Helper script (device)
@@ -49,7 +49,7 @@ Save as `scripts/deploy-device.sh` (make it executable `chmod +x scripts/deploy-
 #!/usr/bin/env bash
 set -euo pipefail
 APP_ID="com.silo7.popsicle"      # bundle ID
-TEAM_ID="<TEAM_ID>"               # your Apple Developer Team ID
+TEAM_ID="H8PXUJH7MU"             # your Apple Developer Team ID
 DEVICE_NAME="<IPHONE_OR_IPAD_NAME>"  # e.g., "John's iPhone"
 PROJECT_DIR="popsicle/NailAR"
 DERIVED="${PROJECT_DIR}/build"

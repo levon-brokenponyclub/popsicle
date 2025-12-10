@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SIM_NAME="iPad (10th generation)"   # change to another simulator if desired
-APP_ID="com.nailar.app"
+APP_ID="com.silo7.popsicle"
 PROJECT_DIR="/Users/levongravett/Desktop/nail-app/NailAR"
 DERIVED="${PROJECT_DIR}/build"
 
