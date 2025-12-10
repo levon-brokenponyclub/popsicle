@@ -186,7 +186,7 @@ struct RoundedCorner: Shape {
         VStack {
             Spacer()
             NailStylePickerView(
-                selectedStyle: .constant(.classic),
+                selectedStyle: .constant(.natural),
                 isPresented: .constant(true)
             )
             .frame(height: 200)

@@ -43,7 +43,7 @@ struct ARCameraView: UIViewControllerRepresentable {
 
 class ARCameraViewController: UIViewController {
     var cameraManager: CameraManager?
-    var selectedStyle: NailStyle = .classic
+    var selectedStyle: NailStyle = .natural
     var coordinator: ARCameraView.Coordinator?
     
     private var previewLayer: AVCaptureVideoPreviewLayer?

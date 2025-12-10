@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var cameraManager = CameraManager()
-    @State private var selectedStyle: NailStyle = .classic
+    @State private var selectedStyle: NailStyle = .natural
     @State private var showStylePicker = false
     @State private var capturePhoto = false
     
