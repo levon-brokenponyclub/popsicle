@@ -175,6 +175,14 @@ NailAR/
 - Ensure storage space is available
 - Grant access when prompted
 
+## What to Expect When Running
+
+- Live camera feed with Apple Vision hand tracking (21 landmarks/hand) driving color-only nail overlays; no custom art is loaded.
+- Overlays follow each fingertip; slight smoothing is applied to reduce jitter. Sizes are clamped so nails don’t shrink too small.
+- Front/back camera supported; orientation is handled automatically for hand tracking.
+- Simulator will show UI only (no camera/hand tracking). Use a real device for AR/vision.
+- Permissions: first launch prompts for Camera and Photos; allow both for full functionality.
+
 ## Customization
 
 ### Hand Tracking Tuning (color-only build)
